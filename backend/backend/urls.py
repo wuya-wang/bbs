@@ -17,11 +17,13 @@ from django.contrib import admin
 from django.urls import path, re_path, include
 from django.views.static import serve
 from backend import settings
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from rest_framework_simplejwt.views import TokenRefreshView
+from .serializer import MyTokenObtainPairView
 
 urlpatterns = [
     path('admin/', admin.site.urls),  # 后台管理
-    re_path(r'^api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),  # 登录token
+    re_path(r'^register/', include('rest_auth.registration.urls')),  # 注册
+    re_path(r'^login/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),  # 登录token /登录
     re_path(r'^api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),  # 刷新token
     re_path(r'^api-auth/', include('rest_framework.urls')),  # drf视图
     re_path(r'^api/', include("api.urls")),  # api路由

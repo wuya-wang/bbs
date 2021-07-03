@@ -45,8 +45,15 @@ INSTALLED_APPS = [
     # 第三方库
     'rest_framework',
     'rest_framework_simplejwt',
-
+    'rest_framework.authtoken',
+    'rest_auth',  # 登录注册
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -142,7 +149,7 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = [BASE_DIR / "media"]
+MEDIA_ROOT = (BASE_DIR / "media")
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
