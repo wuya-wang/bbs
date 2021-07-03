@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-)#!son!9)&)5a+e7xyp!*lqm(@8bs06b+n@_b8b(vl^4$xip^b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -39,10 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # App
-    'api',
+    "api.apps.ApiConfig",
+    "tools.apps.ToolsConfig",
 
     # 第三方库
-    'rest_framework'
+    'rest_framework',
+    'rest_framework_simplejwt',
 
 ]
 
@@ -75,6 +77,17 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'backend.wsgi.application'
+
+REST_FRAMEWORK = {
+    # 全局权限管路
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
+    # 全局身份认证
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
 
 
 # Database
@@ -125,8 +138,15 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = [BASE_DIR / "media"]
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# 自定义用户表
+AUTH_USER_MODEL = 'api.User'

@@ -15,8 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path, include
+from django.views.static import serve
+from backend import settings
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    re_path(r'^api/', include("api.urls"))
+    path('admin/', admin.site.urls),  # 后台管理
+    re_path(r'^api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),  # 登录token
+    re_path(r'^api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),  # 刷新token
+    re_path(r'^api-auth/', include('rest_framework.urls')),  # drf视图
+    re_path(r'^api/', include("api.urls")),  # api路由
+    re_path(r'^tools/', include("tools.urls")),  # 工具路由
+    re_path(r'media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT})  # 媒体资源路径
 ]
