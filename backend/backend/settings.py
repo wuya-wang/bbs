@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'rest_auth.registration',
+    'guardian',  # 对象级别权限管理
 ]
 
 SITE_ID = 1
@@ -86,8 +87,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',  # 默认
+    'guardian.backends.ObjectPermissionBackend',
+)
+
 REST_FRAMEWORK = {
-    # 全局权限管路
+    # 全局权限管理
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
