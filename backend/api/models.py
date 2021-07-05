@@ -38,9 +38,12 @@ class Tag(BaseModel):
 
 # 帖子
 class Post(BaseModel):
+    author = models.ForeignKey(verbose_name="作者", to=User, on_delete=models.SET_NULL, null=True, blank=True)
     title = models.CharField(verbose_name="标题", max_length=128, blank=True)
     text = models.CharField(verbose_name="内容", max_length=512, blank=True)
     tags = models.ManyToManyField(Tag)
+
+    objects = models.Manager()
 
     def __str__(self):
         return self.title

@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
     # 第三方库
     'rest_framework',
+    'django_filters',
     'rest_framework_simplejwt',
     'rest_framework.authtoken',
     'rest_auth',  # 登录注册
@@ -94,6 +95,10 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    # 全局分页
+    'DEFAULT_FILTER_BACKENDS': (
+            'django_filters.rest_framework.DjangoFilterBackend',
+        ),
 }
 
 
