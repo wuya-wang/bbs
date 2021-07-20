@@ -14,12 +14,10 @@ class Register(RegisterView, MyTokenObtainPairSerializer):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = self.perform_create(serializer)
-        token = self.get_token(user)
-        access = token.access_token
-        data = {
-            "token": str(token),
-            "access": str(access)
-        }
+        refresh = self.get_token(user)
+        data = dict()
+        data['refresh'] = str(refresh)
+        data['token'] = str(refresh.access_token)
         return Response(status=status.HTTP_201_CREATED, data=data)
 
     def perform_create(self, serializer):
