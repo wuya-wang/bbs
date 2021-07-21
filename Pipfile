@@ -8,6 +8,7 @@ django = "*"
 djangorestframework = "*"
 markdown = "*"
 django-filter = "*"
+django-guardian = "*"
 
 [dev-packages]
 

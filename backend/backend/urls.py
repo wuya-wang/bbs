@@ -30,5 +30,5 @@ urlpatterns = [
     re_path(r'^api/', include("api.urls")),  # api路由
     re_path(r'^tools/', include("tools.urls")),  # 工具路由
     re_path(r'media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),  # 媒体资源路径
-    re_path(r'static/(?P<path>.*)$', serve, {'document_root': settings.STATICFILES_DIRS})  # 静态资源路径
+    re_path(r'static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT})  # 静态资源路径
 ]
