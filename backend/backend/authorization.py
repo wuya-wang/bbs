@@ -87,12 +87,14 @@ class CustomPermission(permissions.BasePermission):
                 # Read permissions already checked and failed, no need
                 # to make another lookup.
                 print("1")
-                raise Http404
-
+                # raise Http404
+                return False
             read_perms = self.get_required_permissions('GET', model_cls)
             if not user.has_perms(read_perms, obj):
                 print(read_perms, "2")
-                raise Http404
+                # raise Http404 返回的是未找到， 预想返回应是无权限，所以将raise Http404注释，返回权限判断的结果
+                # raise Http404
+                return False
 
             # Has read permissions.
             return False
